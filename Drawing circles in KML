@@ -1,0 +1,20 @@
+#uses the simplekml and polycircles packages
+
+import simplekml as simplekml
+from polycircles import polycircles
+radii = [5, 8.5, 12, 15.5, 19, 22.5, 28.5, 34.5, 40.5, 46.5, 52.5, 58.5, 64.5, 70.5, 76.5, 82.5] #The list of radii
+for i in radii: #takes each item in 'radii' and runs the block below once for each item in the list
+
+    polycircle = polycircles.Polycircle(latitude=-33.852783, #centre of the circle in lat
+                                    longitude=18.819876, #centre of the circle in long
+                                    radius=i, #item in the list "radii'
+                                    number_of_vertices=16) #it can't draw real circles so it draws a polygon with X many corners, joined by lines
+    kml = simplekml.Kml() #creates a variable kml, that contains a command from the simplekml package
+    pol = kml.newpolygon(name="Circle"+str(i), # creates a polygon 'pol', using the kml variable, named "Circle[plus the radius in m]
+                                         outerboundaryis=polycircle.to_kml())
+
+    kml.save("Circles"+str(i)+".kml") #generates a .kml file that is called "Circles[plus the radius]
+
+
+
+
